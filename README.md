@@ -42,9 +42,13 @@ The application evolves step by step, improving design, structure, scalability, 
   Implement basic equality comparison between two length objects in Feet.
 
 - Example:
+- 
   | Input            | Expected Result   |
+  
 | ---------------- | ----------------- |
+
 | 1.0 ft vs 1.0 ft | Equal (true)      |
+
 | 2.0 ft vs 3.0 ft | Not Equal (false) |
 
 
