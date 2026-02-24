@@ -42,13 +42,10 @@ The application evolves step by step, improving design, structure, scalability, 
   Implement basic equality comparison between two length objects in Feet.
 
 - Example:
-- 
-  | Input            | Expected Result   |
   
+| Input            | Expected Result   |  
 | ---------------- | ----------------- |
-
 | 1.0 ft vs 1.0 ft | Equal (true)      |
-
 | 2.0 ft vs 3.0 ft | Not Equal (false) |
 
 
@@ -66,7 +63,8 @@ The application evolves step by step, improving design, structure, scalability, 
   Introduce Inches and enable comparison between Feet and Inches.
 
 - Example:
-  | Input             | Expected Result   |
+  
+| Input             | Expected Result   |
 | ----------------- | ----------------- |
 | 1 ft vs 12 inches | Equal (true)      |
 | 2 ft vs 24 inches | Equal (true)      |
@@ -87,7 +85,8 @@ The application evolves step by step, improving design, structure, scalability, 
 Refactor duplicate classes into a single unified Length class using enum-based unit handling.
 
 - Example:
-  | Input             | Expected Result   |
+  
+| Input             | Expected Result   |
 | ----------------- | ----------------- |
 | 1 ft vs 12 inches | Equal (true)      |
 | 3 ft vs 36 inches | Equal (true)      |
@@ -109,6 +108,7 @@ Refactor duplicate classes into a single unified Length class using enum-based u
   Extend the system to support additional units: Yards and Centimeters.
 
 - Example:
+  
 | Input                  | Expected Result   |
 | ---------------------- | ----------------- |
 | 1 yard vs 36 inches    | Equal (true)      |
@@ -131,12 +131,14 @@ Refactor duplicate classes into a single unified Length class using enum-based u
   Implement generic conversion functionality between any supported units.
 
 - Example:
+  
 | Input                | Converted Output |
 | -------------------- | ---------------- |
 | 2 feet → yards       | 0.67 yards       |
 | 36 inches → yards    | 1 yard           |
 | 30.48 cm → feet      | 1 foot           |
 | 2 feet → centimeters | 60.96 cm         |
+
 
 
 - Focus:
