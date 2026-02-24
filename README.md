@@ -42,7 +42,11 @@ The application evolves step by step, improving design, structure, scalability, 
   Implement basic equality comparison between two length objects in Feet.
 
 - Example:
-  1.0 ft == 1.0 ft → true
+  | Input            | Expected Result   |
+| ---------------- | ----------------- |
+| 1.0 ft vs 1.0 ft | Equal (true)      |
+| 2.0 ft vs 3.0 ft | Not Equal (false) |
+
 
 - Focus:
 
@@ -58,7 +62,12 @@ The application evolves step by step, improving design, structure, scalability, 
   Introduce Inches and enable comparison between Feet and Inches.
 
 - Example:
-  1 ft == 12 inches → true
+  | Input             | Expected Result   |
+| ----------------- | ----------------- |
+| 1 ft vs 12 inches | Equal (true)      |
+| 2 ft vs 24 inches | Equal (true)      |
+| 1 ft vs 10 inches | Not Equal (false) |
+
 
 - Focus:
 
@@ -74,7 +83,12 @@ The application evolves step by step, improving design, structure, scalability, 
 Refactor duplicate classes into a single unified Length class using enum-based unit handling.
 
 - Example:
-  1 ft == 12 inches → true
+  | Input             | Expected Result   |
+| ----------------- | ----------------- |
+| 1 ft vs 12 inches | Equal (true)      |
+| 3 ft vs 36 inches | Equal (true)      |
+| 5 ft vs 50 inches | Not Equal (false) |
+
 
 - Focus:
 
@@ -91,9 +105,13 @@ Refactor duplicate classes into a single unified Length class using enum-based u
   Extend the system to support additional units: Yards and Centimeters.
 
 - Example:
-  1 yard == 36 inches → true
-  3 feet == 1 yard → true
-  100 cm ≈ 39.37 inches → true
+| Input                  | Expected Result   |
+| ---------------------- | ----------------- |
+| 1 yard vs 36 inches    | Equal (true)      |
+| 3 feet vs 1 yard       | Equal (true)      |
+| 100 cm vs 39.37 inches | Equal (true)      |
+| 30 cm vs 1 foot        | Not Equal (false) |
+
 
 - Focus:
 
@@ -109,9 +127,13 @@ Refactor duplicate classes into a single unified Length class using enum-based u
   Implement generic conversion functionality between any supported units.
 
 - Example:
-  2 feet → 0.67 yards
-  36 inches → 1 yard
-  30.48 cm → 1 foot
+| Input                | Converted Output |
+| -------------------- | ---------------- |
+| 2 feet → yards       | 0.67 yards       |
+| 36 inches → yards    | 1 yard           |
+| 30.48 cm → feet      | 1 foot           |
+| 2 feet → centimeters | 60.96 cm         |
+
 
 - Focus:
 
