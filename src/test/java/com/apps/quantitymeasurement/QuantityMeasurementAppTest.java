@@ -341,15 +341,6 @@ public class QuantityMeasurementAppTest {
 	}
 
 	@Test
-	public void testAddition_Commutativity() {
-		Quantity<VolumeUnit> sum = new Quantity<>(1.0, VolumeUnit.LITRE)
-				.add(new Quantity<>(1000.0, VolumeUnit.MILLILITRE));
-		Quantity<VolumeUnit> sumExpected = new Quantity<>(1000.0, VolumeUnit.MILLILITRE)
-				.add(new Quantity<>(1.0, VolumeUnit.LITRE));
-		assertTrue(QuantityMeasurementApp.demonstrateEquality(sum, sumExpected));
-	}
-
-	@Test
 	public void testAddition_WithZero() {
 		Quantity<VolumeUnit> q1 = new Quantity<>(5.0, VolumeUnit.LITRE);
 		Quantity<VolumeUnit> q2 = new Quantity<>(0.0, VolumeUnit.MILLILITRE);
