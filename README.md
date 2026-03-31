@@ -9,144 +9,184 @@ Each use case is implemented in a separate feature branch to simulate real-world
 The application evolves step by step, improving design, structure, scalability, and maintainability with every new use case.
 
 
-## Concepts Practiced
-
-- Object-Oriented Programming
-
-- Encapsulation
-
-- Method Overriding
-
-- Enum Usage
-
-- DRY Principle
-
-
-## Branch Structure
-
-- feature/UC1-FeetEquality
-
-- feature/UC2-InchEquality
-
-- feature/UC3-GenericLength
-
-- feature/UC4-YardEquality
-
-- feature/UC5-UnitConversion
-
 
 ## Use Case Breakdown
-### UC1 – Feet Equality
 
-- Objective:
-  Implement basic equality comparison between two length objects in Feet.
+### UC1 – Basic Equality (Feet)
 
-- Example:
+
+- Created Feet class
+- Implemented equals()
+- Ensured null safety and type safety
+- Learned equality contract
+
   
-| Input            | Expected Result   |  
-| ---------------- | ----------------- |
-| 1.0 ft vs 1.0 ft | Equal (true)      |
-| 2.0 ft vs 3.0 ft | Not Equal (false) |
+### UC2 – Added Inches
 
 
-- Focus:
+- Added separate Inches class
+- Identified duplication
+- Recognized DRY violation
 
- * Overriding equals()
-
- * Basic OOP structure
-
- * Object comparison logic
-
-### UC2 – Inches & Cross Comparison
-
-- Objective:
-  Introduce Inches and enable comparison between Feet and Inches.
-
-- Example:
   
-| Input             | Expected Result   |
-| ----------------- | ----------------- |
-| 1 ft vs 12 inches | Equal (true)      |
-| 2 ft vs 24 inches | Equal (true)      |
-| 1 ft vs 10 inches | Not Equal (false) |
+### UC3 – Generic Quantity Class (DRY Principle)
 
+Refactored into:
 
-- Focus:
+- Single QuantityLength class
+- LengthUnit enum
+- Achievements
+- Eliminated duplication
+- Enabled cross-unit equality
+- Improved scalability
+- Clean architecture
 
-  Unit conversion logic
-
-  Validation handling
-
-  Identifying code duplication issue
-
-### UC3 – Generic Length Class (DRY Applied)
-
-- Objective:
-Refactor duplicate classes into a single unified Length class using enum-based unit handling.
-
-- Example:
   
-| Input             | Expected Result   |
-| ----------------- | ----------------- |
-| 1 ft vs 12 inches | Equal (true)      |
-| 3 ft vs 36 inches | Equal (true)      |
-| 5 ft vs 50 inches | Not Equal (false) |
-
-
-- Focus:
-
- DRY Principle
-
- Enum for unit representation
-
- Base-unit conversion strategy
-
-
 ### UC4 – Extended Unit Support
 
-- Objective:
-  Extend the system to support additional units: Yards and Centimeters.
 
-- Example:
+ Added:
+
+- YARD
+- CENTIMETER
+- Without modifying QuantityLength.
+
+Demonstrates:
+
+- Enum extensibility
+- Backward compatibility
+- Multi-unit comparison
+- Transitive equality
+
   
-| Input                  | Expected Result   |
-| ---------------------- | ----------------- |
-| 1 yard vs 36 inches    | Equal (true)      |
-| 3 feet vs 1 yard       | Equal (true)      |
-| 100 cm vs 39.37 inches | Equal (true)      |
-| 30 cm vs 1 foot        | Not Equal (false) |
+### UC5 – Explicit Unit Conversion API
 
 
-- Focus:
+Introduced:
 
- System extensibility
+- Static convert() method
+- Instance convertTo() method
+- Method overloading
+- Input validation
+- Zero, negative, and large value support
 
- Backward compatibility
 
- Floating-point precision handling
+### UC6 – Addition of Two Length Units
 
-### UC5 – Unit Conversion Feature
 
-- Objective:
-  Implement generic conversion functionality between any supported units.
+- Implemented addition of two Length objects
+- Used base unit (inches) for internal calculation
+- Converted both operands to base unit before addition
+- Converted result back to first operand’s unit
+- Maintained immutability (returned new object)
 
-- Example:
   
-| Input                | Converted Output |
-| -------------------- | ---------------- |
-| 2 feet → yards       | 0.67 yards       |
-| 36 inches → yards    | 1 yard           |
-| 30.48 cm → feet      | 1 foot           |
-| 2 feet → centimeters | 60.96 cm         |
+### UC7 – Addition with Explicit Target Unit
 
 
+- Added support for specifying target unit in addition
+- Implemented add(length1, length2, targetUnit)
+- Converted result into desired unit
+- Improved flexibility for arithmetic operations
 
-- Focus:
+  
+### UC8 – Refactoring Unit Enum
 
-  Reusable conversion method
 
-  Rounding logic
+- Extracted LengthUnit into standalone enum
+- Moved conversion logic from class to enum
+- Applied Single Responsibility Principle
+- Improved separation of concerns
 
-  Exception handling
+  
+### UC9 – Weight Measurement Support
+
+
+- Added new category: Weight
+- Introduced WeightUnit enum (kg, g, lb)
+- Implemented equality, conversion, and addition
+- Ensured no comparison between different categories
+
+  
+### UC10 – Generic Quantity with Unit Interface
+
+
+- Introduced IMeasurable interface
+- Created generic class Quantity
+- Replaced separate classes with single generic solution
+- Ensured type safety across categories
+- Applied DRY principle
+
+  
+### UC11 – Volume Measurement
+
+
+- Added new category: Volume
+- Introduced VolumeUnit enum (L, mL, gallon)
+- Supported equality, conversion, and addition
+- No changes required in generic logic
+
+  
+### UC12 – Subtraction and Division
+
+
+- Added subtraction and division operations
+- Supported cross-unit arithmetic within same category
+- Maintained immutability and consistency
+
+  
+### UC13 – Centralized Arithmetic Logic
+
+
+- Refactored arithmetic logic into common method
+- Removed duplicate code from operations
+- Improved maintainability and readability
+
+  
+### UC14 – Temperature Measurement
+
+
+- Added new category: Temperature
+- Introduced units (Celsius, Fahrenheit, Kelvin)
+- Supported only conversion and comparison
+- Restricted invalid arithmetic operations
+
+  
+### UC15 – N-Tier Architecture Refactoring
+
+
+- Refactored into layered architecture
+- Introduced Controller, Service, Repository layers
+- Applied SOLID principles
+- Improved scalability and separation of concerns
+
+  
+### UC16 – Database Integration (JDBC)
+
+
+- Integrated database using JDBC
+- Replaced in-memory storage
+- Implemented CRUD operations
+- Enabled data persistence
+
+  
+### UC17 – Spring Boot Integration
+
+
+- Converted project into Spring Boot application
+- Exposed REST APIs (GET, POST, PUT, DELETE)
+- Integrated Spring Data JPA
+- Added Swagger and Actuator
+
+  
+### UC18 – Spring Security with OAuth2 & JWT
+
+
+- Implemented authentication and authorization
+- Integrated Spring Security framework
+- Added JWT-based token authentication
+- Implemented OAuth2 login support
+- Secured REST APIs with role-based access
+
 
 
