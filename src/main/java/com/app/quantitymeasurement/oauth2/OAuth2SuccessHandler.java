@@ -22,14 +22,27 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 	}
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
-			throws IOException, java.io.IOException {
+	public void onAuthenticationSuccess(HttpServletRequest request,
+	                                    HttpServletResponse response,
+	                                    Authentication auth)
+	        throws java.io.IOException {
 
-		OAuth2User user = (OAuth2User) auth.getPrincipal();
+	    OAuth2User user = (OAuth2User) auth.getPrincipal();
 
-		String username = user.getAttribute("email");
-		String token = jwtUtil.generateToken(username);
+	    String email = user.getAttribute("email");
+	    String name  = user.getAttribute("name");
+	    String avatar = user.getAttribute("picture"); 
 
-		response.getWriter().write(token);
+	    String token = jwtUtil.generateToken(email);
+
+	   
+	    String redirectUrl = "http://localhost:4200/oauth2/callback"
+	            + "?token=" + token
+	            + "&email=" + email
+	            + "&name=" + (name != null ? name : "")
+	            + "&avatar=" + (avatar != null ? avatar : "");
+
+	    response.sendRedirect(redirectUrl);
 	}
+
 }
