@@ -53,7 +53,7 @@ public class SecurityConfig {
 				// Authorization Rules
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/auth/**", "/oauth2/**", "/h2-console/**", "/swagger-ui/**",
-								"/swagger-ui.html", "/v3/api-docs/**", "/actuator/**")
+								"/swagger-ui.html", "/v3/api-docs/**")
 						.permitAll()
 
 						// Secure your APIs now
