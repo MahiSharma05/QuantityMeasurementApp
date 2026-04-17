@@ -20,11 +20,14 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
+
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = oAuth2User.getAttribute("email");
+
         String token = jwtService.generateToken(email);
-        // Redirect to your frontend with token — change URL in production
+
+        // 🔥 Redirect directly to dashboard WITH token
         getRedirectStrategy().sendRedirect(request, response,
-                "http://localhost:3000/oauth2/success?token=" + token);
+                "http://localhost:4200/oauth-success?token=" + token);
     }
 }

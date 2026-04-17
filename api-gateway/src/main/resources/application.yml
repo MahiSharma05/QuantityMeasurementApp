@@ -7,6 +7,23 @@ spring:
 
   cloud:
     gateway:
+
+      # ✅ CORS CONFIG
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+
+      # ✅ ROUTES
       routes:
 
         - id: user-service-auth
@@ -31,11 +48,13 @@ spring:
             - StripPrefix=0
             - name: JwtAuthFilter
 
+    # ✅ DISCOVERY (FIXED POSITION)
     discovery:
       locator:
         enabled: true
         lower-case-service-id: true
 
+# ✅ EUREKA CONFIG
 eureka:
   client:
     service-url:
@@ -43,9 +62,11 @@ eureka:
   instance:
     prefer-ip-address: true
 
+# ✅ JWT SECRET (LONG ENOUGH)
 jwt:
   secret: my-super-secret-key-my-super-secret-key-1234566737234-my-key-secret-key
 
+# ✅ ACTUATOR
 management:
   endpoints:
     web:

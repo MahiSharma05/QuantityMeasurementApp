@@ -19,7 +19,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
-  # 🔥 IMPORTANT for proper 404 handling
+  # IMPORTANT for proper 404 handling
   mvc:
     throw-exception-if-no-handler-found: true
 

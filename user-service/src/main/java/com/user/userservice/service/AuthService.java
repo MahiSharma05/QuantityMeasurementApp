@@ -5,14 +5,16 @@ import com.user.userservice.entity.*;
 import com.user.userservice.exception.*;
 import com.user.userservice.repository.UserRepository;
 import com.user.userservice.security.JwtService;
+
 import org.springframework.security.authentication.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Single source of truth for all auth logic.
- * Register → only create user
- * Login → generate JWT
+
+ * Handles all authentication logic:
+ * * Register user
+ * * Login user (JWT generation)
  */
 @Service
 public class AuthService {
@@ -22,20 +24,26 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthService(AuthenticationManager authManager, JwtService jwtService,
-                       UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.authManager    = authManager;
-        this.jwtService     = jwtService;
+    public AuthService(AuthenticationManager authManager,
+                       JwtService jwtService,
+                       UserRepository userRepository,
+                       PasswordEncoder passwordEncoder) {
+        this.authManager = authManager;
+        this.jwtService = jwtService;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    // FIXED REGISTER
+    // ================= REGISTER =================
+
     public String register(RegisterRequest request) {
+
+        // Check if user already exists
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new UserAlreadyExistsException(request.getEmail());
         }
 
+        // Create new user
         User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -47,21 +55,53 @@ public class AuthService {
         return "User registered successfully";
     }
 
-    // LOGIN (GENERATES TOKEN)
+    // ================= LOGIN =================
+
     public AuthResponse login(LoginRequest request) {
+
         try {
+            // Authenticate user credentials
             authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getEmail(),
                             request.getPassword()
                     )
             );
+
         } catch (BadCredentialsException e) {
             throw new InvalidCredentialsException();
         }
 
+        // Generate JWT token
         String token = jwtService.generateToken(request.getEmail());
 
-        return new AuthResponse(token, request.getEmail());
+        // Return response
+        return new AuthResponse(
+                token,
+                request.getEmail()
+        );
+
+    }
+
+    // ================= OPTIONAL (FOR GOOGLE USERS) =================
+    // You can use this later if you want unified handling
+
+    public AuthResponse loginOAuthUser(String email) {
+
+        // If user doesn't exist, create it
+        User user = userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    User newUser = User.builder()
+                            .email(email)
+                            .password("") // No password for OAuth users
+                            .provider(AuthProvider.GOOGLE)
+                            .build();
+                    return userRepository.save(newUser);
+                });
+
+        String token = jwtService.generateToken(user.getEmail());
+
+        return new AuthResponse(token, user.getEmail());
+
     }
 }
